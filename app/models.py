@@ -15,6 +15,8 @@ class Auto(models.Model):
     najeto_km = models.IntegerField()
     hodnota_auta = models.DecimalField(max_digits=10, decimal_places=2)
     fotka = models.ImageField(upload_to='fotky_aut', blank=True, null=True)
+    majitel_auta = models.ForeignKey('Majitel', on_delete=models.SET_NULL, blank=True, null=True)
+    vyrobce_auta = models.ForeignKey('Vyrobce', on_delete=models.SET_NULL, blank=True, null=True)
 
     def __str__(self):
         return f"{self.znacka} {self.typ} ({self.spz})"
@@ -33,3 +35,15 @@ class Majitel(models.Model):
 
     def __str__(self):
         return f"{self.jmeno} {self.prijmeni}"
+
+class Vyrobce(models.Model):
+    id_vyrobce = models.AutoField(primary_key=True)
+    nazev = models.CharField(max_length=100)
+    zeme = models.CharField(max_length=100, null=True)
+    mesto = models.CharField(max_length=100)
+    ulice = models.CharField(max_length=100)
+    cislo_popisne = models.CharField(max_length=10)
+    logo = models.ImageField(upload_to='vyrobci/', null=True, blank=True)
+
+    def __str__(self):
+        return self.nazev

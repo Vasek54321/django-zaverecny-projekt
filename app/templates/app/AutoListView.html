@@ -1,41 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Seznam Aut</title>
+  <title>Seznam aut</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
-<body>
-    <h1>Seznam Aut</h1>
-    <table border="1">
-        <thead>
-            <tr>
-                <th>SPZ</th>
-                <th>Značka</th>
-                <th>Typ</th>
-                <th>Generace</th>
-                <th>Rok Vydání</th>
-                <th>Výkon (kW)</th>
-                <th>Barva</th>
-                <th>Pohon</th>
-                <th>Najeto km</th>
-                <th>Hodnota auta (Kč)</th>
-                <th>Fotka</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for auto in auta %}
+<body class="bg-dark text-white">
+    <div class="container-fluid p-5 bg-primary text-white text-center">
+        <h1>Seznam aut</h1>
+        <p>Seznam uložených aut</p>
+    </div>
+
+    <div class="container mt-3">
+        <table class="table table-dark table-hover">
+            <thead>
+                <tr>
+                    <th>SPZ</th>
+                    <th>Značka</th>
+                    <th>Typ</th>
+                    <th>Generace</th>
+                    <th>Rok Vydání</th>
+                    <th>Najeto km</th>
+                    <th>Fotka</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for auto in auta %}
                 <tr>
                     <td>{{ auto.spz }}</td>
                     <td>{{ auto.znacka }}</td>
                     <td>{{ auto.typ }}</td>
                     <td>{{ auto.generace }}</td>
                     <td>{{ auto.rok_vydani }}</td>
-                    <td>{{ auto.vykon }}</td>
-                    <td>{{ auto.barva }}</td>
-                    <td>{{ auto.pohon }}</td>
                     <td>{{ auto.najeto_km }}</td>
-                    <td>{{ auto.hodnota_auta }}</td>
                     <td>
                         {% if auto.fotka %}
                             <img src="{{ auto.fotka.url }}" alt="Fotka auta" style="width: 100px;">
@@ -43,9 +43,15 @@
                             Žádná fotka
                         {% endif %}
                     </td>
+                    <td>
+                        <div class="text-left">
+                            <a href="{% url 'AutoDetailView' auto.id_auto %}" class="btn btn-primary">Detail auta</a>
+                        </div>
+                    </td>
                 </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 </body>
 </html>

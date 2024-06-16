@@ -1,16 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Seznam Majitelů</title>
+  <title>Seznam majitelů</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
-<body>
-    <h1>Seznam Majitelů</h1>
-    <ul>
-        {% for majitel in majitele %}
-            <li>{{ majitel.jmeno }} {{ majitel.prijmeni }}</li>
-        {% endfor %}
-    </ul>
+<body class="bg-dark text-white">
+    <div class="container-fluid p-5 bg-primary text-white text-center">
+        <h1>Seznam majitelů</h1>
+        <p>Seznam uložených majitelů</p>
+    </div>
+    <div class="container mt-3">
+        <table class="table table-dark table-hover">
+            <thead>
+                <tr>
+                    <th>Fotka</th>
+                    <th>Jméno</th>
+                    <th>Příjmení</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for majitel in majitele %}
+                <tr>
+                    <td>
+                        {% if majitel.fotka %}
+                            <img src="{{ majitel.fotka.url }}" alt="Fotka majitele" style="width: 100px;">
+                        {% else %}
+                            Žádná fotka
+                        {% endif %}
+                    </td>
+                    <td>{{ majitel.jmeno }}</td>
+                    <td>{{ majitel.prijmeni }}</td>
+                    <td>
+                        <div class="text-left">
+                            <a href="{% url 'MajitelDetailView' majitel.id_majitel%}" class="btn btn-primary">Detail majitele</a>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 </body>
 </html>
